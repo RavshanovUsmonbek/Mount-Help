@@ -1,0 +1,286 @@
+
+CREATE TABLE CAR
+(
+	serial_number        CHAR(18) NOT NULL,
+	color                VARCHAR(20) NULL,
+	type                 VARCHAR(20) NULL,
+	num_of_seats         INTEGER NULL,
+	plate_number         VARCHAR(10) NULL,
+	manufactured_year    INTEGER NULL,
+	manufacturer         VARCHAR(20) NULL,
+	model                VARCHAR(20) NULL,
+	ssn_driver           VARCHAR(15) NOT NULL
+);
+
+ALTER TABLE CAR
+ADD CONSTRAINT XPKCAR PRIMARY KEY (serial_number);
+
+CREATE TABLE CAR_DRIVER
+(
+	ssn_driver           VARCHAR(15) NOT NULL,
+	lic_number           VARCHAR(20) NULL,
+	first_name           VARCHAR(20) NULL,
+	second_name          VARCHAR(20) NULL,
+	gender               CHAR NULL,
+	nationality          VARCHAR(20) NULL,
+	address              VARCHAR(50) NULL
+);
+
+ALTER TABLE CAR_DRIVER
+ADD CONSTRAINT XPKCAR_DRIVER PRIMARY KEY (ssn_driver);
+
+CREATE TABLE HOST
+(
+	ssn                  VARCHAR(15) NOT NULL,
+	ranking              FLOAT NULL,
+	first_name           VARCHAR(20) NULL,
+	second_name          VARCHAR(20) NULL,
+	gender               CHAR NULL,
+	nationality          VARCHAR(10) NULL,
+	address              VARCHAR(50) NULL
+);
+
+ALTER TABLE HOST
+ADD CONSTRAINT XPKHOST PRIMARY KEY (ssn);
+
+CREATE TABLE HOUSE
+(
+	price                FLOAT NULL,
+	postal_code          VARCHAR(20) NULL,
+	num_of_available_rooms INTEGER NULL,
+	max_num_of_guests    INTEGER NULL,
+	address              VARCHAR(80) NOT NULL,
+	has_internet         boolean NULL,
+	ssn                  VARCHAR(15) NOT NULL,
+	is_available         boolean NULL,
+	mountain_range       VARCHAR(20) NULL,
+	region               VARCHAR(20) NULL
+);
+
+ALTER TABLE HOUSE
+ADD CONSTRAINT XPKHOUSE PRIMARY KEY (address);
+
+CREATE TABLE JOIN_TOUR
+(
+	ssn                  VARCHAR(15) NOT NULL,
+	id                   INTEGER NOT NULL
+);
+
+ALTER TABLE JOIN_TOUR
+ADD CONSTRAINT XPKJOIN_TOUR PRIMARY KEY (ssn,id);
+
+CREATE TABLE ORDERS
+(
+	ssn                  VARCHAR(15) NOT NULL,
+	address              VARCHAR(80) NOT NULL,
+	starting_from        DATE NULL,
+	finishing_at         DATE NULL,
+	num_of_people        INTEGER NULL
+);
+
+ALTER TABLE ORDERS
+ADD CONSTRAINT XPKORDERS PRIMARY KEY (ssn,address);
+
+CREATE TABLE ORGINIZER
+(
+	ssn                  VARCHAR(15) NOT NULL,
+	first_name           VARCHAR(20) NULL,
+	second_name          VARCHAR(20) NULL,
+	gender               CHAR NULL,
+	nationality          VARCHAR(20) NULL,
+	address              VARCHAR(20) NULL
+);
+
+ALTER TABLE ORGINIZER
+ADD CONSTRAINT XPKORGINIZER PRIMARY KEY (ssn);
+
+CREATE TABLE PHOTOS
+(
+	photo_url            VARCHAR(100) NOT NULL,
+	address              VARCHAR(80) NOT NULL
+);
+
+ALTER TABLE PHOTOS
+ADD CONSTRAINT XPKPHOTOS PRIMARY KEY (photo_url,address);
+
+CREATE TABLE RESTROOMS
+(
+	location             VARCHAR(20) NOT NULL,
+	price                INTEGER NULL,
+	type                 VARCHAR(20) NULL
+);
+
+ALTER TABLE RESTROOMS
+ADD CONSTRAINT XPKRESTROOMS PRIMARY KEY (location);
+
+CREATE TABLE REVIEWS
+(
+	ssn                  VARCHAR(15) NOT NULL,
+	address              VARCHAR(80) NOT NULL,
+	rank                 INTEGER NULL,
+	review_description   VARCHAR(100) NULL
+);
+
+ALTER TABLE REVIEWS
+ADD CONSTRAINT XPKREVIEWS PRIMARY KEY (ssn,address);
+
+CREATE TABLE REVIEWS_DRIVER
+(
+	rank                 CHAR(18) NULL,
+	review_desciption    CHAR(18) NULL,
+	ssn                  VARCHAR(15) NOT NULL,
+	ssn_driver           VARCHAR(15) NOT NULL
+);
+
+ALTER TABLE REVIEWS_DRIVER
+ADD CONSTRAINT XPKREVIEWS_DRIVER PRIMARY KEY (ssn,ssn_driver);
+
+CREATE TABLE REVIEWS_TOUR
+(
+	rank                 FLOAT NULL,
+	description          VARCHAR(100) NULL,
+	ssn                  VARCHAR(15) NOT NULL,
+	id                   INTEGER NOT NULL
+);
+
+ALTER TABLE REVIEWS_TOUR
+ADD CONSTRAINT XPKREVIEWS_TOUR PRIMARY KEY (ssn,id);
+
+CREATE TABLE RIDE
+(
+	start_time           CHAR(18) NOT NULL,
+	from_lcation         VARCHAR(20) NULL,
+	to_location          VARCHAR(20) NULL,
+	num_of_seats         INTEGER NULL,
+	ssn_driver           VARCHAR(15) NOT NULL,
+	ssn                  VARCHAR(15) NULL,
+	serial_number        CHAR(18) NOT NULL
+);
+
+ALTER TABLE RIDE
+ADD CONSTRAINT XPKRIDE PRIMARY KEY (start_time,ssn_driver,serial_number);
+
+CREATE TABLE TOUR
+(
+	id                   INTEGER NOT NULL,
+	price                INTEGER NULL,
+	starting_from        DATE NULL,
+	endting_at           DATE NULL,
+	location             VARCHAR(20) NULL,
+	mountain_range       VARCHAR(20) NULL,
+	includes_meal        TINYINT NULL,
+	available_spots      INTEGER NULL,
+	ssn                  VARCHAR(15) NULL,
+	type                 CHAR NULL
+);
+
+ALTER TABLE TOUR
+ADD CONSTRAINT XPKTOUR PRIMARY KEY (id);
+
+CREATE TABLE TOURIST
+(
+	ssn                  VARCHAR(15) NOT NULL,
+	first_name           VARCHAR(20) NULL,
+	second_name          VARCHAR(20) NULL,
+	gender               CHAR NULL,
+	nationality          VARCHAR(20) NULL,
+	address              VARCHAR(50) NULL
+);
+
+ALTER TABLE TOURIST
+ADD CONSTRAINT XPKTOURIST PRIMARY KEY (ssn);
+
+CREATE TABLE USER
+(
+	ssn                  VARCHAR(15) NOT NULL
+);
+
+ALTER TABLE USER
+ADD CONSTRAINT XPKUSER PRIMARY KEY (ssn);
+
+CREATE TABLE USER_LANGUAGES
+(
+	language             VARCHAR(2) NOT NULL,
+	ssn                  VARCHAR(15) NOT NULL
+);
+
+ALTER TABLE USER_LANGUAGES
+ADD CONSTRAINT XPKUSER_LANGUAGES PRIMARY KEY (language,ssn);
+
+CREATE TABLE USER_PHONE
+(
+	phone_number         VARCHAR(20) NOT NULL,
+	ssn                  VARCHAR(15) NOT NULL
+);
+
+ALTER TABLE USER_PHONE
+ADD CONSTRAINT XPKUSER_PHONE PRIMARY KEY (phone_number,ssn);
+
+ALTER TABLE CAR
+ADD CONSTRAINT R_23 FOREIGN KEY (ssn_driver) REFERENCES CAR_DRIVER (ssn_driver);
+
+ALTER TABLE CAR_DRIVER
+ADD CONSTRAINT R_17 FOREIGN KEY (ssn_driver) REFERENCES USER (ssn);
+
+ALTER TABLE HOST
+ADD CONSTRAINT R_4 FOREIGN KEY (ssn) REFERENCES USER (ssn);
+
+ALTER TABLE HOUSE
+ADD CONSTRAINT R_22 FOREIGN KEY (ssn) REFERENCES HOST (ssn);
+
+ALTER TABLE JOIN_TOUR
+ADD CONSTRAINT R_26 FOREIGN KEY (ssn) REFERENCES TOURIST (ssn);
+
+ALTER TABLE JOIN_TOUR
+ADD CONSTRAINT R_27 FOREIGN KEY (id) REFERENCES TOUR (id);
+
+ALTER TABLE ORDERS
+ADD CONSTRAINT R_14 FOREIGN KEY (ssn) REFERENCES TOURIST (ssn);
+
+ALTER TABLE ORDERS
+ADD CONSTRAINT R_16 FOREIGN KEY (address) REFERENCES HOUSE (address);
+
+ALTER TABLE ORGINIZER
+ADD CONSTRAINT R_6 FOREIGN KEY (ssn) REFERENCES USER (ssn);
+
+ALTER TABLE PHOTOS
+ADD CONSTRAINT R_18 FOREIGN KEY (address) REFERENCES HOUSE (address);
+
+ALTER TABLE REVIEWS
+ADD CONSTRAINT R_10 FOREIGN KEY (ssn) REFERENCES TOURIST (ssn);
+
+ALTER TABLE REVIEWS
+ADD CONSTRAINT R_12 FOREIGN KEY (address) REFERENCES HOUSE (address);
+
+ALTER TABLE REVIEWS_DRIVER
+ADD CONSTRAINT R_31 FOREIGN KEY (ssn) REFERENCES TOURIST (ssn);
+
+ALTER TABLE REVIEWS_DRIVER
+ADD CONSTRAINT R_39 FOREIGN KEY (ssn_driver) REFERENCES CAR_DRIVER (ssn_driver);
+
+ALTER TABLE REVIEWS_TOUR
+ADD CONSTRAINT R_40 FOREIGN KEY (ssn) REFERENCES TOURIST (ssn);
+
+ALTER TABLE REVIEWS_TOUR
+ADD CONSTRAINT R_41 FOREIGN KEY (id) REFERENCES TOUR (id);
+
+ALTER TABLE RIDE
+ADD CONSTRAINT R_28 FOREIGN KEY (ssn_driver) REFERENCES CAR_DRIVER (ssn_driver);
+
+ALTER TABLE RIDE
+ADD CONSTRAINT R_29 FOREIGN KEY (ssn) REFERENCES TOURIST (ssn);
+
+ALTER TABLE RIDE
+ADD CONSTRAINT R_30 FOREIGN KEY (serial_number) REFERENCES CAR (serial_number);
+
+ALTER TABLE TOUR
+ADD CONSTRAINT R_25 FOREIGN KEY (ssn) REFERENCES ORGINIZER (ssn);
+
+ALTER TABLE TOURIST
+ADD CONSTRAINT R_5 FOREIGN KEY (ssn) REFERENCES USER (ssn);
+
+ALTER TABLE USER_LANGUAGES
+ADD CONSTRAINT R_3 FOREIGN KEY (ssn) REFERENCES USER (ssn);
+
+ALTER TABLE USER_PHONE
+ADD CONSTRAINT R_2 FOREIGN KEY (ssn) REFERENCES USER (ssn);

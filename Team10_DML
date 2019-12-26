@@ -1,0 +1,812 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Generation Time: May 06, 2019 at 03:43 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `Team10`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car`
+--
+
+CREATE TABLE `car` (
+  `serial_number` char(18) NOT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `num_of_seats` int(11) DEFAULT NULL,
+  `plate_number` varchar(10) DEFAULT NULL,
+  `manufactured_year` int(11) DEFAULT NULL,
+  `manufacturer` varchar(20) DEFAULT NULL,
+  `model` varchar(20) DEFAULT NULL,
+  `ssn_driver` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `car`
+--
+
+INSERT INTO `car` (`serial_number`, `color`, `type`, `num_of_seats`, `plate_number`, `manufactured_year`, `manufacturer`, `model`, `ssn_driver`) VALUES
+('SAC123451', 'green', 'suv', 8, '01A123AA', 2014, 'Shevrolet', 'tahoe', '305'),
+('SAC123456', 'white', 'sedan', 4, '01A777AA', 2010, 'Shevrolet', 'matiz', '301'),
+('SAC123457', 'black', 'sedan', 4, '01A111AA', 2011, 'Shevrolet', 'spark', '302'),
+('SAC123458', 'grey', 'sedan', 4, '01A222AA', 2012, 'Shevrolet', 'lacetti', '303'),
+('SAC123459', 'red', 'bus', 15, '01A333AA', 2013, 'Shevrolet', 'suburban', '304');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car_driver`
+--
+
+CREATE TABLE `car_driver` (
+  `ssn_driver` varchar(15) NOT NULL,
+  `lic_number` varchar(20) DEFAULT NULL,
+  `first_name` varchar(20) DEFAULT NULL,
+  `second_name` varchar(20) DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `nationality` varchar(20) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `car_driver`
+--
+
+INSERT INTO `car_driver` (`ssn_driver`, `lic_number`, `first_name`, `second_name`, `gender`, `nationality`, `address`) VALUES
+('301', 'AB12345', 'Evgeniy', 'Kornev', 'M', 'Russian', 'Mirzo Ulugbek, Tashkent'),
+('302', 'AB12346', 'Sevara', 'Chiroylieva', 'F', 'Uzbek', 'Zangiota, Tashkent'),
+('303', 'AB12347', 'Oybek', 'Among', 'M', 'Uzbek', 'Qibray, Samarkand'),
+('304', 'AB12349', 'Katyusha', 'Krasivaya', 'F', 'Russian', 'Sebzor, Nukus'),
+('305', 'AB12344', 'Mirzo', 'Otajonov', 'M', 'Uzbek', 'Rekush, Jizzakh');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `host`
+--
+
+CREATE TABLE `host` (
+  `ssn_host` varchar(15) NOT NULL,
+  `ranking` float DEFAULT NULL,
+  `first_name` varchar(20) DEFAULT NULL,
+  `second_name` varchar(20) DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `nationality` varchar(10) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `host`
+--
+
+INSERT INTO `host` (`ssn_host`, `ranking`, `first_name`, `second_name`, `gender`, `nationality`, `address`) VALUES
+('101', 0, 'Abu-Bakr', 'Jabbarov', 'M', 'Uzbek', 'Kokcha, Termiz'),
+('102', 0, 'Dilmurod', 'Valiev', 'M', 'Uzbek', 'Yunusabad, Tashkent'),
+('103', 0, 'Usmonbek', 'Ravshanov', 'M', 'Uzbek', 'Zomin, Jizzakh'),
+('104', 0, 'Elbek', 'Usmonov', 'M', 'Uzbek', 'Tinchlik, Bukhoro'),
+('105', 0, 'Rick', 'Johnson', 'M', 'American', 'Nurota, Samarkand');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `house`
+--
+
+CREATE TABLE `house` (
+  `price` float DEFAULT NULL,
+  `postal_code` varchar(20) DEFAULT NULL,
+  `num_of_available_rooms` int(11) DEFAULT NULL,
+  `max_num_of_guests` int(11) DEFAULT NULL,
+  `address` varchar(80) NOT NULL,
+  `has_internet` tinyint(1) DEFAULT NULL,
+  `ssn_host` varchar(15) NOT NULL,
+  `is_available` tinyint(1) DEFAULT NULL,
+  `mountain_range` varchar(20) DEFAULT NULL,
+  `region` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `house`
+--
+
+INSERT INTO `house` (`price`, `postal_code`, `num_of_available_rooms`, `max_num_of_guests`, `address`, `has_internet`, `ssn_host`, `is_available`, `mountain_range`, `region`) VALUES
+(8, '324869', 4, 4, '1 Boy st, Zarafshan, Pamir-Alay', 1, '103', 1, 'Zarafshan Range', 'Pamir-Alay'),
+(5, '111215', 5, 5, '12, Buloq st, Chimgan', 1, '101', 1, 'Chatkal Range', 'Bostanlyk '),
+(12, '447332', 2, 2, '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', 1, '105', 1, 'Qurama Mountains', 'eastern Uzbekistan'),
+(4, '245123', 5, 5, '21, Kichkina st,Mingbulak mountain,', 0, '104', 1, 'Mingbulak range', 'Mingbulak'),
+(10, '215111', 6, 6, '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', 0, '102', 1, 'Gissar Range', 'Pamir Mountains');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `join_tour`
+--
+
+CREATE TABLE `join_tour` (
+  `ssn_tourist` varchar(15) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `join_tour`
+--
+
+INSERT INTO `join_tour` (`ssn_tourist`, `id`) VALUES
+('401', 1),
+('402', 1),
+('401', 2),
+('402', 2),
+('401', 3),
+('402', 3),
+('401', 4),
+('402', 4),
+('401', 5),
+('402', 5),
+('403', 5),
+('404', 5),
+('405', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `ssn_tourist` varchar(15) NOT NULL,
+  `address` varchar(80) NOT NULL,
+  `starting_from` date DEFAULT NULL,
+  `finishing_at` date DEFAULT NULL,
+  `num_of_people` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`ssn_tourist`, `address`, `starting_from`, `finishing_at`, `num_of_people`) VALUES
+('401', '1 Boy st, Zarafshan, Pamir-Alay', '2019-05-07', '2019-05-08', 2),
+('401', '12, Buloq st, Chimgan', '2019-05-01', '2019-05-02', 2),
+('401', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', '2019-05-09', '2019-05-10', 2),
+('401', '21, Kichkina st,Mingbulak mountain,', '2019-05-05', '2019-05-06', 2),
+('401', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', '2019-05-03', '2019-05-04', 2),
+('402', '1 Boy st, Zarafshan, Pamir-Alay', '2019-05-07', '2019-05-08', 3),
+('402', '12, Buloq st, Chimgan', '2019-05-01', '2019-05-02', 3),
+('402', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', '2019-05-09', '2019-05-10', 3),
+('402', '21, Kichkina st,Mingbulak mountain,', '2019-05-05', '2019-05-06', 3),
+('402', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', '2019-05-03', '2019-05-04', 3),
+('403', '1 Boy st, Zarafshan, Pamir-Alay', '2019-05-07', '2019-05-08', 1),
+('403', '12, Buloq st, Chimgan', '2019-05-01', '2019-05-02', 1),
+('403', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', '2019-05-09', '2019-05-10', 1),
+('403', '21, Kichkina st,Mingbulak mountain,', '2019-05-05', '2019-05-06', 1),
+('403', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', '2019-05-03', '2019-05-04', 1),
+('404', '1 Boy st, Zarafshan, Pamir-Alay', '2019-05-07', '2019-05-08', 2),
+('404', '12, Buloq st, Chimgan', '2019-05-01', '2019-05-02', 2),
+('404', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', '2019-05-09', '2019-05-10', 2),
+('404', '21, Kichkina st,Mingbulak mountain,', '2019-05-05', '2019-05-06', 2),
+('404', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', '2019-05-03', '2019-05-04', 2),
+('405', '1 Boy st, Zarafshan, Pamir-Alay', '2019-05-07', '2019-05-08', 4),
+('405', '12, Buloq st, Chimgan', '2019-05-01', '2019-05-02', 4),
+('405', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', '2019-05-09', '2019-05-10', 4),
+('405', '21, Kichkina st,Mingbulak mountain,', '2019-05-05', '2019-05-06', 4),
+('405', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', '2019-05-03', '2019-05-04', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orginizer`
+--
+
+CREATE TABLE `orginizer` (
+  `ssn_orginizer` varchar(15) NOT NULL,
+  `first_name` varchar(20) DEFAULT NULL,
+  `second_name` varchar(20) DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `nationality` varchar(20) DEFAULT NULL,
+  `address` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orginizer`
+--
+
+INSERT INTO `orginizer` (`ssn_orginizer`, `first_name`, `second_name`, `gender`, `nationality`, `address`) VALUES
+('201', 'Ruslan', 'Avramov', 'M', 'Russian', '9 Podborod, St.'),
+('202', 'Dilmurod', 'Ubaydullaev', 'M', 'Uzbek', '13 Tin, Tashkent'),
+('203', 'Gulchekhra', 'Todjibaeva', 'F', 'Uzbek', '6 Kokcha, Tashkent'),
+('204', 'Nastya', 'Orlova', 'F', 'Russian', '4 radujnaya, Moscow'),
+('205', 'Dwayne', 'Johnson', 'M', 'American', '13 br, LA, Cal');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `photos`
+--
+
+CREATE TABLE `photos` (
+  `photo_url` varchar(100) NOT NULL,
+  `address` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `photos`
+--
+
+INSERT INTO `photos` (`photo_url`, `address`) VALUES
+('https://www.pexels.com/photo/home-real-estate-106399/', '1 Boy st, Zarafshan, Pamir-Alay'),
+('https://www.pexels.com/photo/home-real-estate-106399/', '12, Buloq st, Chimgan'),
+('https://www.pexels.com/photo/home-real-estate-106399/', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan'),
+('https://www.pexels.com/photo/home-real-estate-106399/', '21, Kichkina st,Mingbulak mountain,'),
+('https://www.pexels.com/photo/home-real-estate-106399/', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restrooms`
+--
+
+CREATE TABLE `restrooms` (
+  `location` varchar(20) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `restrooms`
+--
+
+INSERT INTO `restrooms` (`location`, `price`, `type`) VALUES
+('Chimgan', 0, 'unisex'),
+('Chirchik', 0, 'unisex'),
+('Gazalkent', 0, 'unisex'),
+('Khazrat', 0, 'unisex'),
+('Mingbulat', 0, 'unisex');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews_driver`
+--
+
+CREATE TABLE `reviews_driver` (
+  `rank` char(18) DEFAULT NULL,
+  `review_desciption` char(18) DEFAULT NULL,
+  `ssn_tourist` varchar(15) NOT NULL,
+  `reviewed_date` date NOT NULL,
+  `ssn_driver` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reviews_driver`
+--
+
+INSERT INTO `reviews_driver` (`rank`, `review_desciption`, `ssn_tourist`, `reviewed_date`, `ssn_driver`) VALUES
+('4', 'Good driver', '401', '2019-05-01', '301'),
+('4', 'Good driver', '401', '2019-05-08', '302'),
+('4', 'Good driver', '401', '2019-05-15', '305'),
+('4', 'Good driver', '401', '2019-05-22', '303'),
+('4', 'Good driver', '401', '2019-05-29', '304'),
+('5', 'Excellent driver', '402', '2019-05-03', '301'),
+('5', 'Excellent driver', '402', '2019-05-09', '302'),
+('5', 'Excellent driver', '402', '2019-05-16', '303'),
+('5', 'Excellent driver', '402', '2019-05-24', '304'),
+('5', 'Excellent driver', '402', '2019-05-31', '305'),
+('3', 'So bad! No!', '403', '2019-05-04', '301'),
+('4', 'Good job!', '404', '2019-05-17', '301'),
+('5', 'Awesome!', '405', '2019-05-21', '301');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews_house`
+--
+
+CREATE TABLE `reviews_house` (
+  `ssn_tourist` varchar(15) NOT NULL,
+  `address` varchar(80) NOT NULL,
+  `rank` int(11) DEFAULT NULL,
+  `review_description` varchar(100) DEFAULT NULL,
+  `reviewed_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reviews_house`
+--
+
+INSERT INTO `reviews_house` (`ssn_tourist`, `address`, `rank`, `review_description`, `reviewed_date`) VALUES
+('401', '1 Boy st, Zarafshan, Pamir-Alay', 1, 'So dirty place!', '2019-05-08'),
+('401', '12, Buloq st, Chimgan', 1, 'So dirty place!', '2019-05-02'),
+('401', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', 1, 'So dirty place!', '2019-05-10'),
+('401', '21, Kichkina st,Mingbulak mountain,', 1, 'So dirty place!', '2019-05-06'),
+('401', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', 1, 'So dirty place!', '2019-05-04'),
+('402', '1 Boy st, Zarafshan, Pamir-Alay', 2, 'Not safe at night', '2019-05-08'),
+('402', '12, Buloq st, Chimgan', 2, 'Not safe at night', '2019-05-02'),
+('402', '13 Echki st,Kamchik Pass, Qurama Mountains, eastern Uzbekistan', 2, 'Not safe at night', '2019-05-10'),
+('402', '21, Kichkina st,Mingbulak mountain,', 2, 'Not safe at night', '2019-05-06'),
+('402', '5 Chatkal st, Khazret Sultan, Tajikistan–Uzbekistan border', 2, 'Not safe at night', '2019-05-04'),
+('403', '12, Buloq st, Chimgan', 3, 'Normal', '2019-05-02'),
+('404', '12, Buloq st, Chimgan', 4, 'Good', '2019-05-02'),
+('405', '12, Buloq st, Chimgan', 5, 'Great place! Thanks', '2019-05-02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews_tour`
+--
+
+CREATE TABLE `reviews_tour` (
+  `rank` float DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `ssn_tourist` varchar(15) NOT NULL,
+  `id` int(11) NOT NULL,
+  `reviewed_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reviews_tour`
+--
+
+INSERT INTO `reviews_tour` (`rank`, `description`, `ssn_tourist`, `id`, `reviewed_date`) VALUES
+(5, 'Great! It was so exciting ', '401', 1, '2019-05-15'),
+(5, 'Great! It was so exciting ', '401', 2, '2019-05-28'),
+(5, 'Great! It was so exciting ', '401', 3, '2019-05-22'),
+(5, 'Great! It was so exciting ', '401', 4, '2019-05-09'),
+(5, 'Great! It was so exciting ', '401', 5, '2019-05-30'),
+(4, 'Wow! Nice tour', '402', 1, '2019-05-14'),
+(4, 'Wow! Nice tour', '402', 2, '2019-05-27'),
+(4, 'Wow! Nice tour', '402', 3, '2019-05-22'),
+(4, 'Wow! Nice tour', '402', 4, '2019-05-10'),
+(4, 'Wow! Nice tour', '402', 5, '2019-05-30'),
+(3, 'Nah. Do not join them', '403', 5, '2019-05-30'),
+(4, 'Good tour, good organizer', '404', 5, '2019-05-30'),
+(5, 'Awesome! So much fun', '405', 5, '2019-05-30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ride`
+--
+
+CREATE TABLE `ride` (
+  `start_time` char(18) NOT NULL,
+  `from_lcation` varchar(20) DEFAULT NULL,
+  `to_location` varchar(20) DEFAULT NULL,
+  `num_of_seats` int(11) DEFAULT NULL,
+  `ssn_tourist` varchar(15) DEFAULT NULL,
+  `serial_number` char(18) NOT NULL,
+  `ssn_driver` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ride`
+--
+
+INSERT INTO `ride` (`start_time`, `from_lcation`, `to_location`, `num_of_seats`, `ssn_tourist`, `serial_number`, `ssn_driver`) VALUES
+('10:00 AM', 'Tashkent', 'Chimgan', 4, '401', 'SAC123457', '302'),
+('10:30 AM', 'Tashkent', 'Zarafshan', 4, '401', 'SAC123456', '301'),
+('10:35AM', 'Tashkent', 'Zarafshan', 4, '403', 'SAC123456', '301'),
+('10:55 AM', 'Tashkent', 'Zarafshan', 4, '404', 'SAC123451', '301'),
+('11:00 AM', 'Tashkent', 'Chimgan', 4, '402', 'SAC123457', '302'),
+('12:00 AM', 'Tashkent', 'Kamchik Pass', 4, '401', 'SAC123458', '303'),
+('12:30 AM', 'Tashkent', 'Kamchik Pass', 4, '402', 'SAC123458', '303'),
+('14: 00PM', 'Tashkent', 'Zarafshan', 4, '402', 'SAC123456', '301'),
+('7:30 AM', 'Tashkent', 'Zarafshan', 4, '405', 'SAC123451', '301'),
+('8:00 PM', 'Tashkent', ' Khazret Sultan', 4, '401', 'SAC123451', '305'),
+('8:20 PM', 'Tashkent', ' Khazret Sultan', 4, '402', 'SAC123451', '305'),
+('9:10 AM', 'Tashkent', 'Mingbulak', 4, '402', 'SAC123459', '304'),
+('9:40 AM', 'Tashkent', 'Mingbulak', 4, '401', 'SAC123459', '304');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tour`
+--
+
+CREATE TABLE `tour` (
+  `id` int(11) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  `starting_from` date DEFAULT NULL,
+  `endting_at` date DEFAULT NULL,
+  `location` varchar(20) DEFAULT NULL,
+  `mountain_range` varchar(20) DEFAULT NULL,
+  `includes_meal` tinyint(4) DEFAULT NULL,
+  `available_spots` int(11) DEFAULT NULL,
+  `ssn_orginizer` varchar(15) DEFAULT NULL,
+  `type` char(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tour`
+--
+
+INSERT INTO `tour` (`id`, `price`, `starting_from`, `endting_at`, `location`, `mountain_range`, `includes_meal`, `available_spots`, `ssn_orginizer`, `type`) VALUES
+(1, 10, '2019-05-01', '2019-05-04', 'Kamchik Pass, Qurama', 'Qurama range', 1, 10, '201', '1'),
+(2, 12, '2019-05-05', '2019-05-10', 'Mingbulak mountain', 'Mingbulak range', 1, 8, '202', '1'),
+(3, 13, '2019-05-12', '2019-05-17', 'Khazret Sultan', 'Khazret Sultan ', 0, 4, '203', '1'),
+(4, 14, '2019-05-19', '2019-05-24', 'Chimgan', 'Chimgan range', 0, 10, '204', '0'),
+(5, 15, '2019-05-26', '2019-05-30', 'Zarafshan', 'Zarafshan range', 1, 5, '205', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tourist`
+--
+
+CREATE TABLE `tourist` (
+  `ssn_tourist` varchar(15) NOT NULL,
+  `first_name` varchar(20) DEFAULT NULL,
+  `second_name` varchar(20) DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `nationality` varchar(20) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tourist`
+--
+
+INSERT INTO `tourist` (`ssn_tourist`, `first_name`, `second_name`, `gender`, `nationality`, `address`) VALUES
+('401', 'Roman', 'Aliev', 'M', 'Russian', '2nd Brestskaya St., 6, Moscow 125047, Russia'),
+('402', 'Crystal', 'Swift', 'F', 'American', '8rd, harbor st, moultonborough, nh, usa'),
+('403', 'Alexander ', 'Agostini', 'M', 'Italian', 'Via Vicenza 142, Bargi, Bologna'),
+('404', 'Hussam', 'Al Shaikh', 'M', 'Arabian', '4 Matadi Street Wuse zone 3, Abuja'),
+('405', 'Kathryn', 'Lempert', 'F', 'English', 'broadway 12 st, Cambridge, London');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `ssn` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`ssn`) VALUES
+('101'),
+('102'),
+('103'),
+('104'),
+('105'),
+('201'),
+('202'),
+('203'),
+('204'),
+('205'),
+('301'),
+('302'),
+('303'),
+('304'),
+('305'),
+('401'),
+('402'),
+('403'),
+('404'),
+('405');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_languages`
+--
+
+CREATE TABLE `user_languages` (
+  `language` varchar(2) NOT NULL,
+  `ssn` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_languages`
+--
+
+INSERT INTO `user_languages` (`language`, `ssn`) VALUES
+('uz', '101'),
+('uz', '102'),
+('uz', '103'),
+('uz', '104'),
+('en', '105'),
+('ru', '201'),
+('uz', '201'),
+('ru', '202'),
+('ru', '203'),
+('uz', '203'),
+('ru', '204'),
+('en', '205'),
+('ru', '301'),
+('uz', '302'),
+('uz', '303'),
+('ru', '304'),
+('ru', '305'),
+('ru', '401'),
+('en', '402'),
+('en', '403'),
+('it', '403'),
+('kz', '404'),
+('ru', '404'),
+('ar', '405'),
+('en', '405');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_phone`
+--
+
+CREATE TABLE `user_phone` (
+  `phone_number` varchar(20) NOT NULL,
+  `ssn` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_phone`
+--
+
+INSERT INTO `user_phone` (`phone_number`, `ssn`) VALUES
+('+998971017777', '101'),
+('+998971027777', '102'),
+('+998971037777', '103'),
+('+998971047777', '104'),
+('+998971057777', '105'),
+('+998972017777', '201'),
+('+998972027777', '202'),
+('+998973027777', '202'),
+('+998972037777', '203'),
+('+998972047777', '204'),
+('+998972057777', '205'),
+('+998973017777', '301'),
+('+998973037777', '303'),
+('+998973047777', '304'),
+('+998973057777', '305'),
+('+998974017777', '401'),
+('+998974047777', '402'),
+('+998974037777', '403'),
+('+998974047777', '404'),
+('+998974057777', '405');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `car`
+--
+ALTER TABLE `car`
+  ADD PRIMARY KEY (`serial_number`),
+  ADD KEY `R_23` (`ssn_driver`);
+
+--
+-- Indexes for table `car_driver`
+--
+ALTER TABLE `car_driver`
+  ADD PRIMARY KEY (`ssn_driver`);
+
+--
+-- Indexes for table `host`
+--
+ALTER TABLE `host`
+  ADD PRIMARY KEY (`ssn_host`);
+
+--
+-- Indexes for table `house`
+--
+ALTER TABLE `house`
+  ADD PRIMARY KEY (`address`),
+  ADD KEY `R_22` (`ssn_host`);
+
+--
+-- Indexes for table `join_tour`
+--
+ALTER TABLE `join_tour`
+  ADD PRIMARY KEY (`ssn_tourist`,`id`),
+  ADD KEY `R_27` (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`ssn_tourist`,`address`),
+  ADD KEY `R_16` (`address`);
+
+--
+-- Indexes for table `orginizer`
+--
+ALTER TABLE `orginizer`
+  ADD PRIMARY KEY (`ssn_orginizer`);
+
+--
+-- Indexes for table `photos`
+--
+ALTER TABLE `photos`
+  ADD PRIMARY KEY (`photo_url`,`address`),
+  ADD KEY `R_18` (`address`);
+
+--
+-- Indexes for table `restrooms`
+--
+ALTER TABLE `restrooms`
+  ADD PRIMARY KEY (`location`);
+
+--
+-- Indexes for table `reviews_driver`
+--
+ALTER TABLE `reviews_driver`
+  ADD PRIMARY KEY (`ssn_tourist`,`reviewed_date`,`ssn_driver`),
+  ADD KEY `R_45` (`ssn_driver`);
+
+--
+-- Indexes for table `reviews_house`
+--
+ALTER TABLE `reviews_house`
+  ADD PRIMARY KEY (`ssn_tourist`,`address`,`reviewed_date`),
+  ADD KEY `R_12` (`address`);
+
+--
+-- Indexes for table `reviews_tour`
+--
+ALTER TABLE `reviews_tour`
+  ADD PRIMARY KEY (`ssn_tourist`,`id`,`reviewed_date`),
+  ADD KEY `R_41` (`id`);
+
+--
+-- Indexes for table `ride`
+--
+ALTER TABLE `ride`
+  ADD PRIMARY KEY (`start_time`,`serial_number`,`ssn_driver`),
+  ADD KEY `R_29` (`ssn_tourist`),
+  ADD KEY `R_30` (`serial_number`),
+  ADD KEY `R_44` (`ssn_driver`);
+
+--
+-- Indexes for table `tour`
+--
+ALTER TABLE `tour`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `R_25` (`ssn_orginizer`);
+
+--
+-- Indexes for table `tourist`
+--
+ALTER TABLE `tourist`
+  ADD PRIMARY KEY (`ssn_tourist`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`ssn`);
+
+--
+-- Indexes for table `user_languages`
+--
+ALTER TABLE `user_languages`
+  ADD PRIMARY KEY (`language`,`ssn`),
+  ADD KEY `R_3` (`ssn`);
+
+--
+-- Indexes for table `user_phone`
+--
+ALTER TABLE `user_phone`
+  ADD PRIMARY KEY (`phone_number`,`ssn`),
+  ADD KEY `R_2` (`ssn`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `car`
+--
+ALTER TABLE `car`
+  ADD CONSTRAINT `R_23` FOREIGN KEY (`ssn_driver`) REFERENCES `car_driver` (`ssn_driver`);
+
+--
+-- Constraints for table `car_driver`
+--
+ALTER TABLE `car_driver`
+  ADD CONSTRAINT `R_17` FOREIGN KEY (`ssn_driver`) REFERENCES `user` (`ssn`);
+
+--
+-- Constraints for table `host`
+--
+ALTER TABLE `host`
+  ADD CONSTRAINT `R_4` FOREIGN KEY (`ssn_host`) REFERENCES `user` (`ssn`);
+
+--
+-- Constraints for table `house`
+--
+ALTER TABLE `house`
+  ADD CONSTRAINT `R_22` FOREIGN KEY (`ssn_host`) REFERENCES `host` (`ssn_host`);
+
+--
+-- Constraints for table `join_tour`
+--
+ALTER TABLE `join_tour`
+  ADD CONSTRAINT `R_26` FOREIGN KEY (`ssn_tourist`) REFERENCES `tourist` (`ssn_tourist`),
+  ADD CONSTRAINT `R_27` FOREIGN KEY (`id`) REFERENCES `tour` (`id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `R_14` FOREIGN KEY (`ssn_tourist`) REFERENCES `tourist` (`ssn_tourist`),
+  ADD CONSTRAINT `R_16` FOREIGN KEY (`address`) REFERENCES `house` (`address`);
+
+--
+-- Constraints for table `orginizer`
+--
+ALTER TABLE `orginizer`
+  ADD CONSTRAINT `R_6` FOREIGN KEY (`ssn_orginizer`) REFERENCES `user` (`ssn`);
+
+--
+-- Constraints for table `photos`
+--
+ALTER TABLE `photos`
+  ADD CONSTRAINT `R_18` FOREIGN KEY (`address`) REFERENCES `house` (`address`);
+
+--
+-- Constraints for table `reviews_driver`
+--
+ALTER TABLE `reviews_driver`
+  ADD CONSTRAINT `R_31` FOREIGN KEY (`ssn_tourist`) REFERENCES `tourist` (`ssn_tourist`),
+  ADD CONSTRAINT `R_45` FOREIGN KEY (`ssn_driver`) REFERENCES `car_driver` (`ssn_driver`);
+
+--
+-- Constraints for table `reviews_house`
+--
+ALTER TABLE `reviews_house`
+  ADD CONSTRAINT `R_10` FOREIGN KEY (`ssn_tourist`) REFERENCES `tourist` (`ssn_tourist`),
+  ADD CONSTRAINT `R_12` FOREIGN KEY (`address`) REFERENCES `house` (`address`);
+
+--
+-- Constraints for table `reviews_tour`
+--
+ALTER TABLE `reviews_tour`
+  ADD CONSTRAINT `R_40` FOREIGN KEY (`ssn_tourist`) REFERENCES `tourist` (`ssn_tourist`),
+  ADD CONSTRAINT `R_41` FOREIGN KEY (`id`) REFERENCES `tour` (`id`);
+
+--
+-- Constraints for table `ride`
+--
+ALTER TABLE `ride`
+  ADD CONSTRAINT `R_29` FOREIGN KEY (`ssn_tourist`) REFERENCES `tourist` (`ssn_tourist`),
+  ADD CONSTRAINT `R_30` FOREIGN KEY (`serial_number`) REFERENCES `car` (`serial_number`),
+  ADD CONSTRAINT `R_44` FOREIGN KEY (`ssn_driver`) REFERENCES `car_driver` (`ssn_driver`);
+
+--
+-- Constraints for table `tour`
+--
+ALTER TABLE `tour`
+  ADD CONSTRAINT `R_25` FOREIGN KEY (`ssn_orginizer`) REFERENCES `orginizer` (`ssn_orginizer`);
+
+--
+-- Constraints for table `tourist`
+--
+ALTER TABLE `tourist`
+  ADD CONSTRAINT `R_5` FOREIGN KEY (`ssn_tourist`) REFERENCES `user` (`ssn`);
+
+--
+-- Constraints for table `user_languages`
+--
+ALTER TABLE `user_languages`
+  ADD CONSTRAINT `R_3` FOREIGN KEY (`ssn`) REFERENCES `user` (`ssn`);
+
+--
+-- Constraints for table `user_phone`
+--
+ALTER TABLE `user_phone`
+  ADD CONSTRAINT `R_2` FOREIGN KEY (`ssn`) REFERENCES `user` (`ssn`);
